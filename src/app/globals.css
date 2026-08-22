@@ -1,0 +1,80 @@
+@import "tailwindcss";
+
+:root {
+  /* BenuWorld Brand Colors */
+  --primary-teal: #0F766E;
+  --primary-aqua: #2DD4BF;
+  --secondary-sand: #E8C87D;
+  --secondary-terracotta: #C96F4A;
+  --text-ink: #12211E;
+  --bg-warm-white: #FAFAF8;
+  --bg-soft-tint: #F1F5F4;
+  --bg-dark-teal: #0B1F1C;
+  
+  /* Background and foreground */
+  --background: #FAFAF8;
+  --foreground: #12211E;
+}
+
+@theme inline {
+  /* Brand Colors */
+  --color-primary-teal: var(--primary-teal);
+  --color-primary-aqua: var(--primary-aqua);
+  --color-secondary-sand: var(--secondary-sand);
+  --color-secondary-terracotta: var(--secondary-terracotta);
+  --color-text-ink: var(--text-ink);
+  --color-bg-warm-white: var(--bg-warm-white);
+  --color-bg-soft-tint: var(--bg-soft-tint);
+  --color-bg-dark-teal: var(--bg-dark-teal);
+  
+  /* Standard colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  
+  /* Fonts - will be set in layout.tsx */
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  
+  /* Custom shadows */
+  --shadow-brand: 0 20px 40px rgba(15,118,110,0.12);
+  --shadow-card: 0 4px 20px rgba(15,118,110,0.08);
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-body), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.font-display {
+  font-family: var(--font-display), Georgia, serif;
+}
+
+.hero-mesh {
+  background:
+    radial-gradient(ellipse at 20% 20%, rgba(45, 212, 191, 0.28), transparent 50%),
+    radial-gradient(ellipse at 80% 0%, rgba(232, 200, 125, 0.18), transparent 45%),
+    linear-gradient(135deg, #0B1F1C 0%, #0F766E 55%, #134E4A 100%);
+}
+
+/* Custom gradient utility */
+.brand-gradient {
+  background: linear-gradient(135deg, var(--primary-teal), var(--primary-aqua));
+}
+
+@keyframes navprogress {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(320%);
+  }
+}
+
+/* Focus states for accessibility */
+*:focus-visible {
+  outline: 2px solid var(--primary-teal);
+  outline-offset: 2px;
+}
