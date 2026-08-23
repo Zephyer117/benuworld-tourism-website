@@ -1,12 +1,22 @@
 'use client';
 
-import { Bell, Search, User } from 'lucide-react';
+import { Bell, Search, User, LogOut } from 'lucide-react';
+import { useRouter } from 'next/navigation';
+import { logout, getUsername } from '@/lib/auth';
 
 interface AdminHeaderProps {
   isSidebarCollapsed: boolean;
 }
 
 export default function AdminHeader({ isSidebarCollapsed }: AdminHeaderProps) {
+  const router = useRouter();
+  const username = getUsername();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
+
   return (
     <header 
       className={`fixed top-0 right-0 bg-white border-b border-gray-200 h-16 flex items-center justify-between px-6 z-40 transition-all duration-300 ${
@@ -35,9 +45,16 @@ export default function AdminHeader({ isSidebarCollapsed }: AdminHeaderProps) {
             <User className="w-5 h-5 text-primary-teal" />
           </div>
           <div className="hidden md:block">
-            <div className="font-medium text-sm text-gray-900">Admin User</div>
+            <div className="font-medium text-sm text-gray-900">{username || 'Admin User'}</div>
             <div className="text-xs text-gray-500">Super Admin</div>
           </div>
+          <button
+            onClick={handleLogout}
+            className="p-2 rounded-lg hover:bg-red-50 transition-colors group"
+            title="Logout"
+          >
+            <LogOut className="w-5 h-5 text-gray-600 group-hover:text-red-600" />
+          </button>
         </div>
       </div>
     </header>

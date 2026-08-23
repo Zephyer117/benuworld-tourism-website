@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { 
   LayoutDashboard, 
   FileText, 
@@ -16,6 +17,7 @@ import {
   TrendingUp,
   Database
 } from 'lucide-react';
+import { logout, getUsername } from '@/lib/auth';
 
 interface AdminSidebarProps {
   isCollapsed: boolean;
@@ -24,6 +26,13 @@ interface AdminSidebarProps {
 
 export default function AdminSidebar({ isCollapsed, onToggle }: AdminSidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const username = getUsername();
+
+  const handleLogout = () => {
+    logout();
+    router.push('/');
+  };
 
   const navigation = [
     { section: 'Content', items: [
@@ -58,7 +67,7 @@ export default function AdminSidebar({ isCollapsed, onToggle }: AdminSidebarProp
             <div className="w-8 h-8 rounded-full brand-gradient flex items-center justify-center">
               <span className="text-white font-bold text-sm font-display">B</span>
             </div>
-            <span className="font-bold font-display">Admin</span>
+            <span className="font-bold font-display">Benu World</span>
           </div>
         )}
         <button
@@ -109,15 +118,19 @@ export default function AdminSidebar({ isCollapsed, onToggle }: AdminSidebarProp
       <div className="p-4 border-t border-white/10">
         <div className="flex items-center space-x-3">
           <div className="w-10 h-10 rounded-full bg-primary-aqua/20 flex items-center justify-center">
-            <span className="text-primary-aqua font-bold">A</span>
+            <span className="text-primary-aqua font-bold">{username?.charAt(0).toUpperCase() || 'A'}</span>
           </div>
           {!isCollapsed && (
             <div className="flex-1">
-              <div className="font-medium text-sm">Admin User</div>
-              <div className="text-xs text-white/50">admin@benuworld.com</div>
+              <div className="font-medium text-sm">{username || 'Admin User'}</div>
+              <div className="text-xs text-white/50">{username ? `${username}@benuworld.com` : 'admin@benuworld.com'}</div>
             </div>
           )}
-          <button className="p-2 rounded-lg hover:bg-white/10 transition-colors" title="Logout">
+          <button 
+            onClick={handleLogout}
+            className="p-2 rounded-lg hover:bg-white/10 transition-colors" 
+            title="Logout"
+          >
             <LogOut className="w-5 h-5" />
           </button>
         </div>
